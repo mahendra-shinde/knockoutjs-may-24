@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Knockout : Demo 03</title>
+        <script src="libs/knockout-3.5.1.js" >
+            // MUST BE EMPTY
+        </script>
+        <style>
+        kbd {
+           padding: 3px;
+           border: 1px solid grey;
+           border-radius: 5px; 
+        }    
+        </style>
+    </head>
+    <body>
+    
+    <h1> Hello World ! </h1>
+    Enter your firstname : <input data-bind="value: firstName" /><br/>
+    Enter your lastname : <input data-bind="value: lastName" /><br/>
+
+    <h3>Hello <span data-bind="text: fullName"></span></h3>
+    </body>
+
+    <script>
+    var viewModel = function(firstName, lastName){
+        this.firstName = ko.observable(firstName);
+        this.lastName = ko.observable(lastName);
+
+        this.fullName = ko.computed(function(){
+            return this.firstName()+" "+this.lastName();
+        }, this);
+    }
+    ko.applyBindings(new viewModel("",""));
+    </script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Knockout : Demo 01</title>
+        <script src="libs/knockout-3.5.1.js" >
+            // MUST BE EMPTY
+        </script>
+    </head>
+    <body>
+    
+    <h1> Hello World ! </h1>
+    <!-- The Unidirectional data binding of KO 
+        data-bind represents the future binding for component
+        text:   - *.innerHTML  ::> Basic HTML Tags like H1...h6 or P, SPAN, DIV ...
+        value:  - *.value      ::> INPUT fields like text or textarea
+    -->
+    
+    <p>Welcome to planet <span data-bind="text: planetName"></span> <br/>
+
+    <input data-bind="value: planetName" />
+    <select name="planetNames" data-bind="options: planets, optionsCaption: 'Choose a planet...'""></select>
+    </p>
+    </body>
+
+    <script>
+    // build a model with User defined name.
+    var viewModel = function(){
+        // Define all the ATTRIBUTES for Value Model
+        this.planetName = ko.observable("Mars");
+        this.planets = ko.observableArray(['Mercury','Venus','Mars','Earth']);
+    }        
+    // Apply the view Model to ENTIRE PAGE !!
+    ko.applyBindings(new viewModel());
+    </script>
+</html>

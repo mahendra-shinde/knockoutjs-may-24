@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Knockout : Demo 03</title>
+        <script src="libs/knockout-3.5.1.js" >
+            // MUST BE EMPTY
+        </script>
+        <style>
+        kbd {
+           padding: 3px;
+           border: 1px solid grey;
+           border-radius: 5px; 
+        }    
+        .darktheme {
+            background-color: darkgray;
+            color: white;
+        }
+        .lighttheme{
+            background-color: white;
+            color: black;
+        }
+        </style>
+    </head>
+    <body>
+    
+    <p>Welcome to planet <span data-bind="text: planetName"></span> <br/>
+    
+    <h3>List of Planets</h3>
+    <UL data-bind="foreach: planets, " >
+        <li>
+            <h4 data-bind="text: name, css: $parent.theme" ></h4>
+            <p data-bind="ifnot: isHome()">
+                Planet <kbd data-bind="text: name"></kbd> is approximately <kbd data-bind="text: mass"></kbd> times of Earth
+            </p>
+            <p data-bind="if: isHome()">
+                Planet <kbd data-bind="text: name"></kbd> is home to Us.
+            </p>
+        </li>
+    </UL>
+    <button data-bind="click: setTheme('darktheme')">Dark Theme</button>
+    <button data-bind="click: setTheme('lighttheme')">Light Theme</button>
+    
+    </p>
+    </body>
+
+    <script>
+    // build a model with User defined name.
+    var Planet = function(name, kind, mass) {
+        this.name = name;
+        this.kind = kind;
+        this.mass = mass;
+
+        this.isHome=function(){
+            return this.name == "Earth";            
+        }
+    }
+    var viewModel = function(){
+        // Define all the ATTRIBUTES for Value Model
+        this.theme = ko.observable("lighttheme");
+        this.planetName = ko.observable("Mars");
+        this.planets = ko.observableArray([]);
+        this.planets.push(new Planet('Mercury', 'Terrastrial', 0.4));
+        this.planets.push(new Planet('Venus', 'Terrastrial', 0.89));
+        this.planets.push(new Planet('Mars', 'Terrastrial', 0.6));
+        this.planets.push(new Planet('Earth', 'Terrastrial', 1));
+
+        this.setTheme = function(theme){
+            this.theme(theme);
+            console.log("Set the theme to "+theme);
+        }
+    }        
+    // Apply the view Model to ENTIRE PAGE !!
+    ko.applyBindings(new viewModel());
+    </script>
+</html>
