@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Knockout : Demo 06</title>
-        <script src="libs/knockout-3.5.1.js" >
-            // MUST BE EMPTY
-        </script>
-        <style>
-            .style1 {
-                background-color: lightcyan;    
-            }
-            .style2 {
-                background-color: lightpink;
-            }
-        </style>
-    </head>
+<head>
+    <title>Knockout : Demo 06</title>
+    <script src="libs/knockout-3.5.1.js">
+        // MUST BE EMPTY
+    </script>
+    <style>
+        .style1 {
+            background-color: lightcyan;
+        }
 
-    <body>
+        .style2 {
+            background-color: lightpink;
+        }
+    </style>
+</head>
+
+<body>
     <h2>Product Catalog</h2>
+
+    <b>Display Mode</b> : <input type="radio" name="display" value="AsList" data-bind="checked: displayMode"/> As List
+    <input type="radio" name="display" value="AsTable" data-bind="checked: displayMode"/> As Table
+    
     <ul data-bind="template: { name: 'productTemplate', foreach: products},  css: 'style1'">
-
     </ul>
+    
+</body>
 
-    </body>
-
-  
-    <script type="text/html" id="productTemplate">
+<script type="text/html" id="productTemplate">
     <li>
         <span data-bind="text: name"> </span><br/>
         <span data-bind="text: price"> </span>
     </li>
     </script>
-    <script>
-        var viewModel = function(){
-            this.products = ko.observableArray([
-                {name: 'Oppo F21', price: '23000'},
-                {name: 'Oneplus Nord CE', price: '26000'},
-                {name: 'Oneplus 11R', price: '43000'}
-            ]);
-        }
-        ko.applyBindings(new viewModel());
-    </script>
+<script>
+    var viewModel = function () {
+        this.products = ko.observableArray([
+            { name: 'Oppo F21', price: '23000' },
+            { name: 'Oneplus Nord CE', price: '26000' },
+            { name: 'Oneplus 11R', price: '43000' }
+        ]);
+        this.displayMode = ko.observable();
+    }
+    ko.applyBindings(new viewModel());
+</script>
+
 </html>

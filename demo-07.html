@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Knockout : Demo 06</title>
+    <script src="libs/knockout-3.5.1.js">
+        // MUST BE EMPTY
+    </script>
+    <style>
+        .style1 {
+            background-color: lightcyan;
+        }
+
+        .style2 {
+            background-color: lightpink;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Product Catalog</h2>
+
+    <div data-bind="component: {name: 'product-catalog'},  css: 'style1'">
+    </div>
+
+</body>
+
+<script type="text/html" id="productTemplate">
+    <ul data-bind="foreach: products">
+    <li>
+        <span data-bind="text: name"> </span><br/>
+        <span data-bind="text: price"> </span>
+    </li>
+    </ul>
+    </script>
+<script>
+    ko.components.register('product-catalog',
+        {
+            viewModel: function () {
+                this.products = ko.observableArray([
+                    { name: 'Oppo F21', price: '23000' },
+                    { name: 'Oneplus Nord CE', price: '26000' },
+                    { name: 'Oneplus 11R', price: '43000' }
+                ]);
+            },
+            // Same as document.getElementById('productTemplate')`
+            template: { element: 'productTemplate' }
+        }
+    );
+    ko.applyBindings();
+</script>
+
+</html>
